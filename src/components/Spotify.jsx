@@ -1,5 +1,29 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {styled} from 'styled-components'
+
+const Content = styled.div`
+  width: 400px;
+  align-items: center;
+  justify-content: center;
+  padding: 150px 16px;
+  margin-left: 10%;
+  flex-shrink: 0;
+  color: #5f91dd;
+  font-size: 40px;
+  font-weight: bold;
+  display: inline-block;
+  position:absolute;
+  z-index: 30;
+`
+
+const Playlist = styled.div`
+padding-top: 20px;
+  color: #AB61E5;
+  font-size: 50px;
+  font-weight: bold;
+  z-index: 30;
+`
 
 export const Spotify = (props) => {
   const componentName = () => playList;
@@ -51,15 +75,17 @@ export const Spotify = (props) => {
 
   return (
     <>
-      <div className="tenki-wrapper">
-        明日の天気は{props.tenki}です。
-      </div>
-      <div className="test-wrapper">
-      {props.tenki}におすすめプレイリストは...
-      </div>
-      <div>{componentName()}です。</div>
-      <img src={componentImage()}></img>
-      <a href={componentUrl()}>Spotifyでチェックする</a>
+      <Content>
+        <div>
+          {props.tenki}に聴きたい
+        </div>
+        <div>
+          プレイリスト名
+        </div>
+        <Playlist>&nbsp;&nbsp;&nbsp;{componentName()}</Playlist>
+      </Content>
+      <img class="image" src={componentImage()}></img>
+      <a class="link" href={componentUrl()}>Spotifyでチェックする</a>
     </>
   );
 };
