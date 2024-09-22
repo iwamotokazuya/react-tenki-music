@@ -20,7 +20,7 @@ const Content = styled.div`
 const Playlist = styled.div`
 padding-top: 20px;
   color: #AB61E5;
-  font-size: 50px;
+  font-size: 40px;
   font-weight: bold;
   z-index: 30;
 `
@@ -51,27 +51,24 @@ export const Spotify = (props) => {
   )}, []);
 
   useEffect(() => {
-    axios.get('https://weather.tsukumijima.net/api/forecast/city/130010')
-    .then((resp) => {
     axios.get("https://api.spotify.com/v1/search", {
     headers: {
       'Content-Type' : "application/json",
       'Authorization': `Bearer ${spotifyList}`
     },
     params: {
-      q: `${resp.data.forecasts[1].telop}`,
+      q: `#{props.tenki}`,
       type: 'playlist',
       market: 'JP'
     }
   })
   .then((response) => {
-    const res = response.data.playlists.items[0];
+    const res = response.data.playlists.items[1];
       setplaylist(res.name);
       setplaylistImage(res.images[0].url);
       setplaylistUrl(res.external_urls.spotify);
     });
-  }, [])
-});
+  }, []);
 
   return (
     <>
@@ -84,8 +81,8 @@ export const Spotify = (props) => {
         </div>
         <Playlist>&nbsp;&nbsp;&nbsp;{componentName()}</Playlist>
       </Content>
-      <img class="image" src={componentImage()}></img>
-      <a class="link" href={componentUrl()}>Spotifyでチェックする</a>
+      <img className="image" src={componentImage()}></img>
+      <a className="link" href={componentUrl()}>Spotifyでチェックする</a>
     </>
   );
 };
